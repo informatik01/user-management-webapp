@@ -1,0 +1,79 @@
+#headerContainer {
+	float: right;
+}
+
+/***** Navigation menu *****/
+#navContainer {
+	width: 50%;
+	float: left
+}
+
+#navContainer ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#navContainer li {
+	display: inline;
+	padding-right: 15px;
+}
+
+
+/***** Login menu *****/
+#loginContainer {
+	width: 15%;
+	height: 35px;	/* fixed height to prevent moving of other element after toggle */
+	margin-right: 25px;
+	float: right;
+	position: relative;
+}
+
+#loginButton {
+	display: block;
+	float: right;
+	background-color: #00FF00;
+	border: 1px solid blue;
+	cursor: pointer;
+}
+
+#loginButton span {
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px 15px;
+}
+
+#loginBox {
+	display: none;
+}
+
+#loginForm {
+
+}
+
+#loginBody {
+	margin: 0;
+}
+
+#loginBody fieldset {
+	padding: 0;
+	border: 0;
+}
+
+#loginBody fieldset input {
+	width: 95%;
+	margin: 5px 0;
+	padding: 5px;
+}
+
+#submitButton {
+	width: 50%;
+	margin-top: 5px;
+	padding: 3px 0;
+}
+
+#loginBody label {
+	display: block;
+	float: none;
+}

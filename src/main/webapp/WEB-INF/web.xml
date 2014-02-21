@@ -6,6 +6,31 @@
     
     <display-name>User Management Web Application</display-name>
     
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring/applicationContext.xml
+			/WEB-INF/spring/database-config.xml
+		</param-value>
+	</context-param>
+	
+    <filter>
+		<filter-name>charsetEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>charsetEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
     <filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>

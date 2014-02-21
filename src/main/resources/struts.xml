@@ -2,23 +2,22 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
- 
+
 <struts>
- 
-    <constant name="struts.devMode" value="true" />
- 
-    <package name="userManagement-default" extends="struts-default">
- 
- 		<!-- 
-        <action name="index">
-            <result>/index.jsp</result>
-        </action>
- 		-->
- 		
- 		<action name="index" class="ee.ttu.usermanagement.action.HomeAction">
- 			<result name="SUCCESS">/index.jsp</result>
- 		</action>
- 		
-    </package>
- 
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="messages" />
+	<constant name="struts.locale" value="en" />
+
+	<package name="userManagement-default" extends="struts-default">
+
+		<!-- <action name="index"> <result>/index.jsp</result> </action> -->
+
+		<action name="index" class="ee.ttu.usermanagement.action.HomeAction">
+			<result name="SUCCESS">/index.jsp</result>
+		</action>
+
+	</package>
+
 </struts>
