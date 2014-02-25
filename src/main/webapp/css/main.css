@@ -22,6 +22,7 @@
 
 /***** Login menu *****/
 #loginContainer {
+	font-family: Verdana;
 	width: 15%;
 	height: 35px;	/* fixed height to prevent moving of other element after toggle */
 	margin-right: 25px;
@@ -39,13 +40,14 @@
 
 #loginButton span {
 	display: block;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
 	padding: 5px 15px;
 }
 
 #loginBox {
 	display: none;
+	z-index: 100;
 }
 
 #loginForm {
@@ -76,4 +78,9 @@
 #loginBody label {
 	display: block;
 	float: none;
+}
+
+/***** Error messages *****/
+.error {
+	color: #FF0000;
 }

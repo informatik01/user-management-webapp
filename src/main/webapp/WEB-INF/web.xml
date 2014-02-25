@@ -14,6 +14,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/spring/applicationContext.xml
+			/WEB-INF/spring/security-config.xml
 			/WEB-INF/spring/database-config.xml
 		</param-value>
 	</context-param>
@@ -32,6 +33,15 @@
 	</filter-mapping>
     
     <filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
+    <filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>
 			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
@@ -41,5 +51,21 @@
 		<filter-name>struts2</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+    
+    <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secure area</web-resource-name>
+			<url-pattern>/login</url-pattern>
+			<url-pattern>/admin/*</url-pattern>
+			<url-pattern>/client/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+    
+    <welcome-file-list>
+    	<welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
     
 </web-app>
