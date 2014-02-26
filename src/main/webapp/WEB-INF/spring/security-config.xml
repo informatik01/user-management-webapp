@@ -12,13 +12,12 @@
 	<http pattern="/js/**" security="none" />
 	
 	<http use-expressions="true">
-		<intercept-url pattern="/index*" access="isAnonymous()" />
-		<intercept-url pattern="/home*" access="isAnonymous()" />
-		<intercept-url pattern="/login*" access="isAnonymous()" />
-		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<intercept-url pattern="/login*" access="permitAll()" requires-channel="https" />
+		<intercept-url pattern="/client/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" requires-channel="https" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="https" />
 		<form-login login-page="/login"
-					default-target-url="/loginSuccess" 
-					authentication-failure-url="/login?loginError=Ivalid username or password" />
+					default-target-url="/admin/loginSuccess" 
+					authentication-failure-url="/login?loginError=true" />
 		<logout logout-success-url="/index" />
 	</http>
 	

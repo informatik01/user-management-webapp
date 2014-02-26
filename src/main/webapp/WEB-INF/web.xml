@@ -52,18 +52,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
     
-    <security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Secure area</web-resource-name>
-			<url-pattern>/login</url-pattern>
-			<url-pattern>/admin/*</url-pattern>
-			<url-pattern>/client/*</url-pattern>
-		</web-resource-collection>
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
-    
     <welcome-file-list>
     	<welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

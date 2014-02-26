@@ -1,5 +1,8 @@
-#headerContainer {
-	float: right;
+#mainContainer {
+	margin: 15px;
+}
+
+#headContainer {
 }
 
 /***** Navigation menu *****/
@@ -19,6 +22,11 @@
 	padding-right: 15px;
 }
 
+/***** Registration *****/
+#registration {
+	margin-right: 10px;
+	float: right;
+}
 
 /***** Login menu *****/
 #loginContainer {
@@ -30,15 +38,18 @@
 	position: relative;
 }
 
-#loginButton {
+.registrationButton {
 	display: block;
+	width: 40%;
+	margin-left: 10px;
 	float: right;
 	background-color: #00FF00;
 	border: 1px solid blue;
+	text-decoration: none;
 	cursor: pointer;
 }
 
-#loginButton span {
+.registrationButton span {
 	display: block;
 	font-size: 15px;
 	font-weight: bold;
@@ -47,6 +58,9 @@
 
 #loginBox {
 	display: none;
+	position: absolute;
+	width: 250px;
+	left: -115px;
 	z-index: 100;
 }
 

@@ -12,8 +12,6 @@
 
 	<package name="userManagement-default" extends="struts-default">
 
-		<!-- <action name="index"> <result>/index.jsp</result> </action> -->
-
 		<action name="index" class="ee.ttu.usermanagement.action.HomeAction">
 			<result name="SUCCESS">/home.jsp</result>
 		</action>
@@ -22,10 +20,18 @@
 			<result>/WEB-INF/login.jsp</result>
 		</action>
 		
+	</package>
+	
+	<package name="client-area" namespace="/client" extends="struts-default">
 		<action name="loginSuccess">
-			<result>/user/pages/success.jsp</result>
+			<result>/WEB-INF/client/pages/client_success.jsp</result>
 		</action>
-
+	</package>
+	
+	<package name="admin-area" namespace="/admin" extends="struts-default">
+		<action name="loginSuccess">
+			<result>/WEB-INF/admin/pages/admin_success.jsp</result>
+		</action>
 	</package>
 
 </struts>
