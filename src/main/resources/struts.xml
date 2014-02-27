@@ -20,6 +20,10 @@
 			<result>/WEB-INF/login.jsp</result>
 		</action>
 		
+		<action name="loadData" class="ee.ttu.usermanagement.action.UserAction">
+			<result name="SUCCESS">/user-list.jsp</result>
+		</action>
+		
 	</package>
 	
 	<package name="client-area" namespace="/client" extends="struts-default">

@@ -46,6 +46,7 @@
 			<h3><s:text name="header.message" /></h3>
 		</div>
 		<h1><s:text name="greeting" /></h1>
+		<a href="loadData">Load data</a>
 	</div>
 </body>
 </html>
