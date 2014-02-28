@@ -5,16 +5,21 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_profile")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name = "first_name", nullable = false)
@@ -26,6 +31,7 @@ public class User implements Serializable {
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "birth_date")
 	private Date birthDate;
 	
@@ -130,6 +136,11 @@ public class User implements Serializable {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return firstName + " " + lastName + " (" + email + ")"; 
 	}
 	
 }

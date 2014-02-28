@@ -13,6 +13,8 @@
 	<br style="clear: both" />
 	<s:if test="#session.SPRING_SECURITY_CONTEXT.authentication != null">
 		<h1><s:property value="#session.SPRING_SECURITY_CONTEXT.authentication.principal.username" />, you have successfully logged in to the admin area!</h1>
+		<hr />
+		<p><a href="manageUsers">Manage registered users</a></p>
 	</s:if>
 </body>
 </html>

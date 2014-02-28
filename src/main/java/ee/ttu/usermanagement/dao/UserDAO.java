@@ -1,4 +1,4 @@
-package ee.ttu.usermanagement.service;
+package ee.ttu.usermanagement.dao;
 
 import ee.ttu.usermanagement.entity.User;
 

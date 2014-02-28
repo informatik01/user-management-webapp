@@ -21,7 +21,8 @@
 		</action>
 		
 		<action name="loadData" class="ee.ttu.usermanagement.action.UserAction">
-			<result name="SUCCESS">/user-list.jsp</result>
+			<result name="error">/user-list.jsp</result>
+			<result name="success">/user-list.jsp</result>
 		</action>
 		
 	</package>
@@ -35,6 +36,10 @@
 	<package name="admin-area" namespace="/admin" extends="struts-default">
 		<action name="loginSuccess">
 			<result>/WEB-INF/admin/pages/admin_success.jsp</result>
+		</action>
+		<action name="manageUsers" method="manageUsers" class="ee.ttu.usermanagement.action.UserAction">
+			<result name="error">/WEB-INF/admin/pages/user_management.jsp</result>
+			<result name="success">/WEB-INF/admin/pages/user_management.jsp</result>
 		</action>
 	</package>
 

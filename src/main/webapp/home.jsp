@@ -20,7 +20,7 @@
 				</ul>
 			</div>
 			<div id="loginContainer">
-				<a class="registrationButton" href="/registerUser"><span>Register</span></a>
+				<a class="registrationButton" href="registerUser"><span>Register</span></a>
 				<a id="loginButton" class="registrationButton" href="#"><span>Sign in</span></a>
 				<div style="clear:both"></div>
 				<div id="loginBox">

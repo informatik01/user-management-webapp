@@ -1,4 +1,4 @@
-package ee.ttu.usermanagement.service;
+package ee.ttu.usermanagement.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,8 @@ import ee.ttu.usermanagement.util.HibernateUtil;
 public abstract class HibernateGenericDAO<T, ID extends Serializable> implements GenericDAO<T, ID> {
 
 	private Class<T> persistentClass;
+	
+	public HibernateGenericDAO() {}
 
 	public HibernateGenericDAO(Class<T> c) {
 		persistentClass = c;
@@ -28,15 +30,20 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Query queryResult = session.createQuery("from User");
+		List<T> list = null;
+		Session session = HibernateUtil.getSession();
+		// FIXME remove transaction handling from DAO
+		session.beginTransaction();
+		Query queryResult = session.createQuery("from " + persistentClass.getName());
+		list = queryResult.list();
+		session.getTransaction().commit();
 		
-		return queryResult.list();
+		return list;
 	}
 
 	@Override
 	public T save(T entity) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		session.saveOrUpdate(entity);
 		
 		return entity;
@@ -44,7 +51,7 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 
 	@Override
 	public void delete(T entity) {
-		HibernateUtil.getSessionFactory().getCurrentSession().delete(entity);
+		HibernateUtil.getSession().delete(entity);
 	}
 
 }

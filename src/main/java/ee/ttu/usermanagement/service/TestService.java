@@ -1,5 +1,8 @@
 package ee.ttu.usermanagement.service;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class TestService {
 
 	private static final String name = "This is a test service.";
