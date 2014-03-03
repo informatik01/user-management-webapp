@@ -27,14 +27,14 @@
 					<form id="loginForm" method="post" action="j_spring_security_check">
 						<fieldset id="loginBody">
 							<fieldset>
-								<label for="email">Email</label>
+								<label for="email"><s:text name="user.email"/></label>
 								<input id="email" name="j_username" type="text" />
 								<s:if test="">
 									<div class="error"></div>
 								</s:if>
 							</fieldset>
 							<fieldset>
-								<label for="password">Password</label>
+								<label for="password"><s:text name="user.password"/></label>
 								<input id="password" name="j_password" type="password" />
 							</fieldset>
 							<input id="submitButton" type="submit" value="Sign in" />

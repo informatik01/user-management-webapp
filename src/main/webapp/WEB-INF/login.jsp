@@ -17,7 +17,7 @@
 <body>
 	<div id="mainContainer">
 		<div>
-			<a href="${pageContext.request.contextPath}">Go to home page</a>
+			<a href="${pageContext.request.contextPath}"><s:text name="general.gohome" /></a>
 		</div>
 		<div id="loginForm">
 			<h1>Please sign in</h1>
