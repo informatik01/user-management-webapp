@@ -45,7 +45,7 @@
 			<div style="clear: both;"></div>
 			<h3><s:text name="header.message" /></h3>
 		</div>
-		<h1><s:text name="greeting" /></h1>
+		<h1><s:text name="general.greeting" /></h1>
 	</div>
 </body>
 </html>
