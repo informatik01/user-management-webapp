@@ -28,18 +28,18 @@
 		<s:include value="/WEB-INF/jspf/header.jsp"></s:include>
 		<h1>Manage Users</h1>
 		<s:if test="hasActionErrors()">
-			<s:actionerror cssStyle="color: #FF0000" />
-		</s:if>
-		<s:elseif test="users == null || users.empty">
-			<p>
-				<s:text name="manage.no_users" />
-		</s:elseif>
-		<s:else>
+				<s:actionerror cssClass="error" />
+			</s:if>
 			<s:if test="hasActionMessages()">
 				<div id="messages">
-					<s:actionmessage/>
+					<s:actionmessage cssClass="message" />
 				</div>
 			</s:if>
+		<s:if test="users == null || users.empty">
+			<p>
+				<s:text name="manage.no_users" />
+		</s:if>
+		<s:else>
 			<table class="userList tablesorter">
 				<thead>
 					<tr>
@@ -54,8 +54,8 @@
 							<td><s:property value="firstName" /></td>
 							<td><s:property value="lastName" /></td>
 							<td class="edit">
-								<a href="showUpdateUser?id=<s:property value="id" />"><s:text name="manage.update" /></a> 
-								| <a href="deleteUser?id=<s:property value="id" />"><s:text name="manage.delete" /></a>
+								<a href="showUpdateUser?userId=<s:property value="id" />"><s:text name="manage.update" /></a> 
+								| <a href="deleteUser?userId=<s:property value="id" />"><s:text name="manage.delete" /></a>
 							</td>
 						</tr>
 					</s:iterator>

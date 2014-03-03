@@ -99,6 +99,18 @@
 	color: #FF0000;
 }
 
+.message {
+	display: inline-block;	/* wraps the text width */
+	margin: 10px 0;
+	padding: 5px;
+	white-space: nowrap;
+	text-align: left;
+	font-size: 1.3em;
+	list-style-type: none;
+	background-color: #FFFF00;
+	color: #005000;
+}
+
 /***** User Management Area *****/
 table.userList {
 	table-layout: fixed;

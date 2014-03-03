@@ -11,7 +11,7 @@
 	<constant name="struts.locale" value="en" />
 
 	<package name="userManagement-default" extends="struts-default">
-
+		
 		<action name="index">
 			<result>/home.jsp</result>
 		</action>
@@ -34,7 +34,9 @@
 	</package>
 	
 	<package name="admin-area" namespace="/admin" extends="struts-default">
-	
+		
+		<default-action-ref name="home" />
+		
 		<action name="home">
 			<result>/WEB-INF/admin/pages/adminHome.jsp</result>
 		</action>
@@ -66,8 +68,8 @@
 		</action>
 		
 		<action name="deleteUser" method="deleteUser" class="ee.ttu.usermanagement.action.UserAction">
-			<result name="error" type="redirectAction">manageUsers</result>
-			<result name="success" type="redirectAction">manageUsers</result>
+			<result name="error">/WEB-INF/admin/pages/userManagement.jsp</result>
+			<result name="success">/WEB-INF/admin/pages/userManagement.jsp</result>
 		</action>
 	</package>
 

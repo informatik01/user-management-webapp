@@ -3,19 +3,17 @@ package ee.ttu.usermanagement.action;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.apache.struts2.interceptor.ParameterAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import ee.ttu.usermanagement.entity.UserProfile;
 import ee.ttu.usermanagement.service.UserManagementService;
 
-public class UserAction extends ActionSupport implements ParameterAware {
+public class UserAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,22 +21,12 @@ public class UserAction extends ActionSupport implements ParameterAware {
 	
 	@Inject
 	private UserManagementService userService;
+
+	private long userId;
 	
 	private UserProfile currentUser;
 	
 	private List<UserProfile> users;
-	
-	private Map<String, String[]> parameters;
-	
-	public Map<String, String[]> getParameters() {
-		return parameters;
-	}
-	
-	@Override
-	public void setParameters(Map<String, String[]> parameters) {
-		this.parameters = parameters;
-		
-	}
 	
 	public UserProfile getCurrentUser() {
 		return currentUser;
@@ -56,6 +44,14 @@ public class UserAction extends ActionSupport implements ParameterAware {
 		this.users = users;
 	}
 
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
 	public String manageUsers() {
 		users = userService.getAllUsers();
 		
@@ -70,29 +66,26 @@ public class UserAction extends ActionSupport implements ParameterAware {
 	}
 	
 	public String showUpdateUser() {
-		long id = Long.parseLong(getParameters().get("id")[0]);
-		System.out.println("***** Update id=" + id);
-		currentUser = userService.findUserById(id);
+		currentUser = userService.findUserById(userId);
 		
 		return SUCCESS;
 	}
 	
 	public String updateUser() {
-		System.out.println("***** ID = " + currentUser.getId());
 		userService.saveUser(currentUser);
 		
 		return SUCCESS;
 	}
 	
 	public String deleteUser() {
-		long id = Long.parseLong(getParameters().get("id")[0]);
-		int deletedNumber = userService.deleteUserWithId(id);
+		int deletedNumber = userService.deleteUserWithId(userId);
 		
-		System.out.println("Deleted: " + deletedNumber + ", text: " + getText("manage.user.deleted"));
 		if (deletedNumber > 0) {
-			addActionMessage(getText("manage.user.deleted", new String[]{Long.toString(id)}));
+			addActionMessage(getText("manage.user.deleted", new String[]{Long.toString(userId)}));
 		}
-		System.out.println("Action message: " + getActionMessages());
+		// We need to get a fresh users list
+		users = userService.getAllUsers();
+				
 		return SUCCESS;
 	}
 	

@@ -47,7 +47,7 @@ public class Main {
 		session = sessionFactory.openSession();
         session.beginTransaction();
         @SuppressWarnings("unchecked")
-		List<UserProfile> result = session.createQuery("from User").list();
+		List<UserProfile> result = session.createQuery("from UserProfile").list();
 		for (UserProfile user : result) {
 			System.out.println(user + ", date of birth: " + user.getBirthDate());
 		}
