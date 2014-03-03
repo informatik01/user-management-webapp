@@ -3,17 +3,19 @@ package ee.ttu.usermanagement.action;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.interceptor.ParameterAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import ee.ttu.usermanagement.dao.UserDAO;
 import ee.ttu.usermanagement.entity.User;
 
-public class UserAction extends ActionSupport {
+public class UserAction extends ActionSupport implements ParameterAware {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -25,6 +27,18 @@ public class UserAction extends ActionSupport {
 	private User currentUser;
 	
 	private List<User> users;
+	
+	private Map<String, String[]> parameters;
+	
+	public Map<String, String[]> getParameters() {
+		return parameters;
+	}
+	
+	@Override
+	public void setParameters(Map<String, String[]> parameters) {
+		this.parameters = parameters;
+		
+	}
 	
 	public User getCurrentUser() {
 		return currentUser;
@@ -44,6 +58,13 @@ public class UserAction extends ActionSupport {
 
 	public String manageUsers() {
 		users = userDao.findAll();
+		
+		return SUCCESS;
+	}
+	
+	public String deleteUser() {
+		long id = Long.parseLong(getParameters().get("id")[0]);
+		userDao.delete(id);
 		
 		return SUCCESS;
 	}

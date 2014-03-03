@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("table").tablesorter({
-				sortList : [ [ 0, 1 ] ]
+				headers: {2: {sorter: false}},
+				sortList : [ [ 0, 0 ] ],
 			}).tablesorterPager({
 				container : $("#pager"),
 				size : 5
@@ -23,16 +24,15 @@
 	</script>
 </head>
 <body>
-	<div id="mainContainer">
-		<div style="float: right; margin-right: 15px;">
-			<a href="${pageContext.request.contextPath}/j_spring_security_logout">Log out</a>
-		</div>
+	<div id="container">
+		<s:include value="/WEB-INF/jspf/header.jsp"></s:include>
 		<h1>Manage Users</h1>
 		<s:if test="hasActionErrors()">
 			<s:actionerror cssStyle="color: #FF0000" />
 		</s:if>
 		<s:elseif test="users == null || users.empty">
-			<p><s:text name="manage.no_users" />
+			<p>
+				<s:text name="manage.no_users" />
 		</s:elseif>
 		<s:else>
 			<table class="userList tablesorter">
@@ -40,8 +40,7 @@
 					<tr>
 						<th><s:text name="user.firstname" /></th>
 						<th><s:text name="user.lastname" /></th>
-						<th><s:text name="user.birthdate" /></th>
-						<th><s:text name="user.email" /></th>
+						<th><s:text name="manage.edit" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,8 +48,8 @@
 						<tr>
 							<td><s:property value="firstName" /></td>
 							<td><s:property value="lastName" /></td>
-							<td><s:date name="birthDate" format="dd MMM YYYY" /></td>
-							<td><s:property value="email" /></td>
+							<td class="edit"><a href="updateUser?id=<s:property value="id" />"><s:text name="manage.update" /></a> 
+							| <a href="deleteUser?id=<s:property value="id" />"><s:text name="manage.delete" /></a></td>
 						</tr>
 					</s:iterator>
 				</tbody>

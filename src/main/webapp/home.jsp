@@ -10,9 +10,9 @@
 	<script src="${pageContext.request.contextPath}/js/login.js"></script>
 </head>
 <body>
-	<div id="mainContainer">
-		<div id="headContainer">
-			<div id="navContainer">
+	<div id="container">
+		<div id="header">
+			<div id="navigation">
 				<ul class="nav">
 					<li><a href="?request_locale=en">Eng</a></li>
 					<li><a href="?request_locale=ru">Ru</a></li>
@@ -20,8 +20,8 @@
 				</ul>
 			</div>
 			<div id="loginContainer">
-				<a class="registrationButton" href="registerUser"><span>Register</span></a>
-				<a id="loginButton" class="registrationButton" href="#"><span>Sign in</span></a>
+				<a class="registrationButton" href="#"><span><s:text name="header.register" /></span></a>
+				<a id="loginButton" class="registrationButton" href="#"><span><s:text name="header.signin" /></span></a>
 				<div style="clear:both"></div>
 				<div id="loginBox">
 					<form id="loginForm" method="post" action="j_spring_security_check">

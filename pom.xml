@@ -77,10 +77,10 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -108,9 +108,9 @@
 			<version>2.2.1</version>
 		</dependency>
 		<dependency>
-    	<groupId>org.postgresql</groupId>
-    		<artifactId>postgresql</artifactId>
-   			<version>9.3-1101-jdbc41</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.3-1101-jdbc41</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -118,9 +118,9 @@
 			<version>1.4</version>
 		</dependency>
 		<dependency>
-   			<groupId>org.hibernate</groupId>
-   			<artifactId>hibernate-core</artifactId>
-   			<version>4.3.1.Final</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.1.Final</version>
 		</dependency>	
 	</dependencies>
 

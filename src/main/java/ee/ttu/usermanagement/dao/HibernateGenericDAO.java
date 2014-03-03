@@ -53,5 +53,14 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 	public void delete(T entity) {
 		HibernateUtil.getSession().delete(entity);
 	}
+	
+	public void delete(ID id) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Query query = session.createQuery("DELETE FROM " + persistentClass.getName() + " WHERE id = :id");
+		query.setParameter("id", id);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
 
 }

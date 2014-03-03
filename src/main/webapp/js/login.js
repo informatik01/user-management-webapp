@@ -19,7 +19,7 @@ $(function() {
 	
     $(this).mouseup(function(login) {
         if(!($(login.target).parent('#loginButton').length > 0)) {
-            button.removeClass('active');
+            //button.removeClass('active');
             box.hide();
         }
     });

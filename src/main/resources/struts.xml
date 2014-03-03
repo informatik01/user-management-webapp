@@ -12,8 +12,8 @@
 
 	<package name="userManagement-default" extends="struts-default">
 
-		<action name="index" class="ee.ttu.usermanagement.action.HomeAction">
-			<result name="SUCCESS">/home.jsp</result>
+		<action name="index">
+			<result>/home.jsp</result>
 		</action>
 
 		<action name="login">
@@ -40,6 +40,10 @@
 		<action name="manageUsers" method="manageUsers" class="ee.ttu.usermanagement.action.UserAction">
 			<result name="error">/WEB-INF/admin/pages/user_management.jsp</result>
 			<result name="success">/WEB-INF/admin/pages/user_management.jsp</result>
+		</action>
+		<action name="deleteUser" method="deleteUser" class="ee.ttu.usermanagement.action.UserAction">
+			<result name="error" type="redirectAction">manageUsers</result>
+			<result name="success" type="redirectAction">manageUsers</result>
 		</action>
 	</package>
 
