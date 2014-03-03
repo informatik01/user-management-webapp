@@ -34,4 +34,15 @@ public class HibernateUtil {
 		return sessionFactory.getCurrentSession();
 	}
 	
+	public static Session beginTransaction() {
+		Session session = getSession();
+		session.beginTransaction();
+		
+		return session;
+	}
+	
+	public static void commit() {
+		getSession().getTransaction().commit();
+	}
+	
 }

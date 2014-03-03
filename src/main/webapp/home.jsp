@@ -6,7 +6,7 @@
 	<title>Home page</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?ver=1.11.0"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js?ver=2.1.0"></script>
 	<script src="${pageContext.request.contextPath}/js/login.js"></script>
 </head>
 <body>
@@ -46,7 +46,6 @@
 			<h3><s:text name="header.message" /></h3>
 		</div>
 		<h1><s:text name="greeting" /></h1>
-		<a href="loadData">Load data</a>
 	</div>
 </body>
 </html>

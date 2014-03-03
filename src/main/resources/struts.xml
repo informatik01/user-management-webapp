@@ -29,18 +29,42 @@
 	
 	<package name="client-area" namespace="/client" extends="struts-default">
 		<action name="loginSuccess">
-			<result>/WEB-INF/client/pages/client_success.jsp</result>
+			<result>/WEB-INF/client/pages/clientHome.jsp</result>
 		</action>
 	</package>
 	
 	<package name="admin-area" namespace="/admin" extends="struts-default">
-		<action name="loginSuccess">
-			<result>/WEB-INF/admin/pages/admin_success.jsp</result>
+	
+		<action name="home">
+			<result>/WEB-INF/admin/pages/adminHome.jsp</result>
 		</action>
+		
 		<action name="manageUsers" method="manageUsers" class="ee.ttu.usermanagement.action.UserAction">
-			<result name="error">/WEB-INF/admin/pages/user_management.jsp</result>
-			<result name="success">/WEB-INF/admin/pages/user_management.jsp</result>
+			<result name="error">/WEB-INF/admin/pages/userManagement.jsp</result>
+			<result name="success">/WEB-INF/admin/pages/userManagement.jsp</result>
 		</action>
+		
+		<action name="showAddUser">
+			<result>/WEB-INF/admin/pages/newUser.jsp</result>
+		</action>
+		
+		<action name="addUser" method="addUser" class="ee.ttu.usermanagement.action.UserAction">
+			<result name="error">/WEB-INF/admin/pages/newUser.jsp</result>
+			<result name="input">/WEB-INF/admin/pages/newUser.jsp</result>
+			<result name="success">/WEB-INF/admin/pages/newUser.jsp</result>
+		</action>
+		
+		<action name="showUpdateUser" method="showUpdateUser" class="ee.ttu.usermanagement.action.UserAction">
+			<result name="error">/WEB-INF/admin/pages/userUpdate.jsp</result>
+			<result name="success">/WEB-INF/admin/pages/userUpdate.jsp</result>
+		</action>
+		
+		<action name="updateUser" method="updateUser" class="ee.ttu.usermanagement.action.UserAction">
+			<result name="success" type="redirectAction">manageUsers</result>
+			<result name="input">/WEB-INF/admin/pages/userUpdate.jsp</result>
+			<result name="success" type="redirectAction">manageUsers</result>
+		</action>
+		
 		<action name="deleteUser" method="deleteUser" class="ee.ttu.usermanagement.action.UserAction">
 			<result name="error" type="redirectAction">manageUsers</result>
 			<result name="success" type="redirectAction">manageUsers</result>

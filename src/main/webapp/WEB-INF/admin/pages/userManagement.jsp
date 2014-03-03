@@ -35,6 +35,11 @@
 				<s:text name="manage.no_users" />
 		</s:elseif>
 		<s:else>
+			<s:if test="hasActionMessages()">
+				<div id="messages">
+					<s:actionmessage/>
+				</div>
+			</s:if>
 			<table class="userList tablesorter">
 				<thead>
 					<tr>
@@ -48,8 +53,10 @@
 						<tr>
 							<td><s:property value="firstName" /></td>
 							<td><s:property value="lastName" /></td>
-							<td class="edit"><a href="updateUser?id=<s:property value="id" />"><s:text name="manage.update" /></a> 
-							| <a href="deleteUser?id=<s:property value="id" />"><s:text name="manage.delete" /></a></td>
+							<td class="edit">
+								<a href="showUpdateUser?id=<s:property value="id" />"><s:text name="manage.update" /></a> 
+								| <a href="deleteUser?id=<s:property value="id" />"><s:text name="manage.delete" /></a>
+							</td>
 						</tr>
 					</s:iterator>
 				</tbody>

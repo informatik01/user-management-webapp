@@ -3,6 +3,7 @@
 }
 
 #header {
+	margin-bottom: 10px;
 }
 
 /***** Navigation menu *****/
@@ -138,7 +139,17 @@ table.userList a {
 	padding-left: 5px;
 }
 
-.edit {
+table.userList .edit {
 	text-align: center;
 	
+}
+
+/***** Other *****/
+
+.userInput {
+	width: 200px;
+}
+
+.inputHelp {
+	color: #BBBBBB;
 }

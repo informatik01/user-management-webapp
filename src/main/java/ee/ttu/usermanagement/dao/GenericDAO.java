@@ -13,6 +13,6 @@ public interface GenericDAO <T, ID extends Serializable> {
 	
 	void delete(T entity);
 	
-	void delete(ID id);
+	int delete(ID id);
 	
 }

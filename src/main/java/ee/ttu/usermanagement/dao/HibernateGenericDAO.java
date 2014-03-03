@@ -22,7 +22,7 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 	@SuppressWarnings("unchecked")
 	public T findById(ID id) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		T entity = (T) session.load(persistentClass, id);
+		T entity = (T) session.get(persistentClass, id);
 		
 		return entity;
 	}
@@ -32,11 +32,8 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 	public List<T> findAll() {
 		List<T> list = null;
 		Session session = HibernateUtil.getSession();
-		// FIXME remove transaction handling from DAO
-		session.beginTransaction();
 		Query queryResult = session.createQuery("from " + persistentClass.getName());
 		list = queryResult.list();
-		session.getTransaction().commit();
 		
 		return list;
 	}
@@ -48,19 +45,19 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 		
 		return entity;
 	}
-
+	
 	@Override
 	public void delete(T entity) {
 		HibernateUtil.getSession().delete(entity);
 	}
 	
-	public void delete(ID id) {
+	public int delete(ID id) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
 		Query query = session.createQuery("DELETE FROM " + persistentClass.getName() + " WHERE id = :id");
 		query.setParameter("id", id);
-		query.executeUpdate();
-		session.getTransaction().commit();
+		int deletedNumber = query.executeUpdate();
+		
+		return deletedNumber;
 	}
 
 }

@@ -11,12 +11,11 @@
 		<s:include value="/WEB-INF/jspf/header.jsp"></s:include>
 		<s:if test="#session.SPRING_SECURITY_CONTEXT.authentication != null">
 			<h1>
-				<s:property value="#session.SPRING_SECURITY_CONTEXT.authentication.principal.username" />
-				, you have successfully logged in to the admin area!
+				<s:text name="admin.home"></s:text>
 			</h1>
 			<hr />
 			<p>
-				<a href="manageUsers">Manage registered users</a>
+				<a href="showAddUser">Add new user</a> | <a href="manageUsers">Manage registered users</a>
 			</p>
 		</s:if>
 	</div>

@@ -12,8 +12,8 @@ import org.apache.struts2.interceptor.ParameterAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import ee.ttu.usermanagement.dao.UserDAO;
 import ee.ttu.usermanagement.entity.User;
+import ee.ttu.usermanagement.service.UserManagementService;
 
 public class UserAction extends ActionSupport implements ParameterAware {
 	
@@ -22,8 +22,8 @@ public class UserAction extends ActionSupport implements ParameterAware {
 	private static final Logger LOGGER = Logger.getLogger(UserAction.class);
 	
 	@Inject
-	private UserDAO userDao;
-
+	private UserManagementService userService;
+	
 	private User currentUser;
 	
 	private List<User> users;
@@ -57,21 +57,48 @@ public class UserAction extends ActionSupport implements ParameterAware {
 	}
 
 	public String manageUsers() {
-		users = userDao.findAll();
+		users = userService.getAllUsers();
+		
+		return SUCCESS;
+	}
+	
+	public String addUser() {
+		userService.saveUser(currentUser);
+		currentUser = null;
+		
+		return SUCCESS;
+	}
+	
+	public String showUpdateUser() {
+		long id = Long.parseLong(getParameters().get("id")[0]);
+		System.out.println("***** Update id=" + id);
+		currentUser = userService.findUserById(id);
+		
+		return SUCCESS;
+	}
+	
+	public String updateUser() {
+		System.out.println("***** ID = " + currentUser.getId());
+		userService.saveUser(currentUser);
 		
 		return SUCCESS;
 	}
 	
 	public String deleteUser() {
 		long id = Long.parseLong(getParameters().get("id")[0]);
-		userDao.delete(id);
+		int deletedNumber = userService.deleteUserWithId(id);
 		
+		System.out.println("Deleted: " + deletedNumber + ", text: " + getText("manage.user.deleted"));
+		if (deletedNumber > 0) {
+			addActionMessage(getText("manage.user.deleted", new String[]{Long.toString(id)}));
+		}
+		System.out.println("Action message: " + getActionMessages());
 		return SUCCESS;
 	}
 	
 	public String execute() throws ParseException {
 		String email = "john.dow@gmail.com";
-		User foundUSer = userDao.findUserByEmail(email);
+		User foundUSer = userService.findUserByEmail(email);
 		if (foundUSer != null) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("User is found: " + foundUSer);
