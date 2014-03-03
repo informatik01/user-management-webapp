@@ -1,10 +1,10 @@
 package ee.ttu.usermanagement.dao;
 
-import ee.ttu.usermanagement.entity.User;
+import ee.ttu.usermanagement.entity.UserProfile;
 
-public interface UserDAO extends GenericDAO<User, Long> {
+public interface UserDAO extends GenericDAO<UserProfile, Long> {
 
-	User findUserByEmail(String email);
+	UserProfile findUserByEmail(String email);
 	
 	int deleteUserWithEmail(String email);
 	

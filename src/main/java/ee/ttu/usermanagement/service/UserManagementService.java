@@ -2,19 +2,19 @@ package ee.ttu.usermanagement.service;
 
 import java.util.List;
 
-import ee.ttu.usermanagement.entity.User;
+import ee.ttu.usermanagement.entity.UserProfile;
 
 public interface UserManagementService {
 
-	void saveUser(User user);
+	void saveUser(UserProfile user);
 	
-	User findUserById(long id);
+	UserProfile findUserById(long id);
 	
-	User findUserByEmail(String email);
+	UserProfile findUserByEmail(String email);
 	
-	List<User> getAllUsers();
+	List<UserProfile> getAllUsers();
 	
-	void deleteUser(User user);
+	boolean deleteUser(UserProfile user);
 	
 	int deleteUserWithId(long id);
 	

@@ -12,7 +12,7 @@ import org.apache.struts2.interceptor.ParameterAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import ee.ttu.usermanagement.entity.User;
+import ee.ttu.usermanagement.entity.UserProfile;
 import ee.ttu.usermanagement.service.UserManagementService;
 
 public class UserAction extends ActionSupport implements ParameterAware {
@@ -24,9 +24,9 @@ public class UserAction extends ActionSupport implements ParameterAware {
 	@Inject
 	private UserManagementService userService;
 	
-	private User currentUser;
+	private UserProfile currentUser;
 	
-	private List<User> users;
+	private List<UserProfile> users;
 	
 	private Map<String, String[]> parameters;
 	
@@ -40,19 +40,19 @@ public class UserAction extends ActionSupport implements ParameterAware {
 		
 	}
 	
-	public User getCurrentUser() {
+	public UserProfile getCurrentUser() {
 		return currentUser;
 	}
 
-	public void setCurrentUser(User currentUser) {
+	public void setCurrentUser(UserProfile currentUser) {
 		this.currentUser = currentUser;
 	}
 
-	public List<User> getUsers() {
+	public List<UserProfile> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<UserProfile> users) {
 		this.users = users;
 	}
 
@@ -98,7 +98,7 @@ public class UserAction extends ActionSupport implements ParameterAware {
 	
 	public String execute() throws ParseException {
 		String email = "john.dow@gmail.com";
-		User foundUSer = userService.findUserByEmail(email);
+		UserProfile foundUSer = userService.findUserByEmail(email);
 		if (foundUSer != null) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("User is found: " + foundUSer);

@@ -4,23 +4,23 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import ee.ttu.usermanagement.entity.User;
+import ee.ttu.usermanagement.entity.UserProfile;
 import ee.ttu.usermanagement.util.HibernateUtil;
 
 @Repository
-public class HibernateUserDAO extends HibernateGenericDAO<User, Long> implements UserDAO {
+public class HibernateUserDAO extends HibernateGenericDAO<UserProfile, Long> implements UserDAO {
 
 	public HibernateUserDAO() {
-		super(User.class);
+		super(UserProfile.class);
 	}
 
 	@Override
-	public User findUserByEmail(String email) {
-		User user = null;
+	public UserProfile findUserByEmail(String email) {
+		UserProfile user = null;
 		String sql = "SELECT u FROM User AS u WHERE u.email = :email";
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery(sql).setParameter("email", email);
-		user = (User) query.uniqueResult();
+		user = (UserProfile) query.uniqueResult();
 		
 		return user;
 	}

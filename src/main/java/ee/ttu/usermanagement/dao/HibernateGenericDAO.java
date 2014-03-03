@@ -11,8 +11,6 @@ import ee.ttu.usermanagement.util.HibernateUtil;
 public abstract class HibernateGenericDAO<T, ID extends Serializable> implements GenericDAO<T, ID> {
 
 	private Class<T> persistentClass;
-	
-	public HibernateGenericDAO() {}
 
 	public HibernateGenericDAO(Class<T> c) {
 		persistentClass = c;

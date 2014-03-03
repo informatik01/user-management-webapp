@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "user_profile")
-public class User implements Serializable {
+public class UserProfile implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -22,17 +22,16 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "first_name", nullable = false)
+	@Column(nullable = false)
 	private String firstName;
 	
-	@Column(name = "last_name", nullable = false)
+	@Column(nullable = false)
 	private String lastName;
 	
-	@Column(name = "email", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private String email;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "birth_date")
 	private Date birthDate;
 	
 	@Column(name = "username")
@@ -41,9 +40,9 @@ public class User implements Serializable {
 	@Column(name = "password")
 	private String password;
 	
-	public User() {}
+	public UserProfile() {}
 	
-	public User(String firstName, String lastName, String email) {
+	public UserProfile(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -103,39 +102,6 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof User)) {
-			return false;
-		}
-		
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null) {
-				return false;
-			}
-		} else if (!email.equals(other.email)) {
-			return false;
-		}
-		
-		return true;
 	}
 	
 	@Override

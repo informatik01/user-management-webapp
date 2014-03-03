@@ -4,57 +4,68 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
 import ee.ttu.usermanagement.dao.UserDAO;
-import ee.ttu.usermanagement.entity.User;
+import ee.ttu.usermanagement.entity.UserProfile;
 import ee.ttu.usermanagement.util.HibernateUtil;
 
 @Repository
 public class DaoUserManagementService implements UserManagementService {
+	
+	private static final Logger LOGGER = Logger.getLogger(DaoUserManagementService.class);
 
 	@Inject
 	private UserDAO userDao;
 	
 	@Override
-	public void saveUser(User user) {
+	public void saveUser(UserProfile user) {
 		HibernateUtil.beginTransaction();
 		userDao.save(user);
 		HibernateUtil.commit();
 	}
 
 	@Override
-	public User findUserById(long id) {
+	public UserProfile findUserById(long id) {
 		HibernateUtil.beginTransaction();
-		User user = userDao.findById(id);
+		UserProfile user = userDao.findById(id);
 		HibernateUtil.commit();
 		
 		return user;
 	}
 
 	@Override
-	public User findUserByEmail(String email) {
+	public UserProfile findUserByEmail(String email) {
 		HibernateUtil.beginTransaction();
-		User user = userDao.findUserByEmail(email);
+		UserProfile user = userDao.findUserByEmail(email);
 		HibernateUtil.commit();
 		
 		return user;
 	}
 	
 	@Override
-	public List<User> getAllUsers() {
+	public List<UserProfile> getAllUsers() {
 		HibernateUtil.beginTransaction();
-		List<User> users = userDao.findAll();
+		List<UserProfile> users = userDao.findAll();
 		HibernateUtil.commit();
 
 		return users;
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public boolean deleteUser(UserProfile user) {
 		HibernateUtil.beginTransaction();
-		userDao.delete(user);
+		try {
+			userDao.delete(user);			
+		} catch (HibernateException e) {
+			LOGGER.error("Error deleting user with id " + user.getId());
+			return false;
+		}
 		HibernateUtil.commit();
+		
+		return true;
 	}
 
 	@Override
