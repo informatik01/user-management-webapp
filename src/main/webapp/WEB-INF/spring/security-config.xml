@@ -11,10 +11,11 @@
 	<http pattern="/images/**" security="none" />
 	<http pattern="/js/**" security="none" />
 	
+	<!-- Intentionally not using requires-channel="https" to ease testing and development -->
 	<http use-expressions="true">
-		<intercept-url pattern="/login*" access="permitAll()" requires-channel="https" />
-		<intercept-url pattern="/client/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" requires-channel="https" />
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="https" />
+		<intercept-url pattern="/login*" access="permitAll()" />
+		<intercept-url pattern="/client/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<form-login login-page="/login"
 					default-target-url="/admin/home" 
 					authentication-failure-url="/login?loginError=true" />

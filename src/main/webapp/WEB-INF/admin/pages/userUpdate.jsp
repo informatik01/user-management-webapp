@@ -10,15 +10,16 @@
 <body>
 	<div id="container">
 		<s:include value="/WEB-INF/jspf/header.jsp"></s:include>
+		<s:include value="/WEB-INF/jspf/notifications.jsp"></s:include>
 		<div id="userForm">
 			<s:form action="updateUser" method="post">
-				<s:hidden name="currentUser.id" />
-				<s:textfield key="user.firstname" name="currentUser.firstName" cssClass="userInput" />
-				<s:textfield key="user.lastname" name="currentUser.lastName" cssClass="userInput" />
-				<s:textfield key="user.email" name="currentUser.email" cssClass="userInput" />
-				<s:date name="currentUser.birthDate" format="dd/MM/YYYY" var="birthDate" />
-				<s:textfield key="user.birthdate" name="currentUser.birthDate" value="%{birthDate}" cssClass="userInput" />
-				<s:submit key="manage.user.update" />
+				<s:hidden name="user.id" />
+				<s:textfield key="user.firstName" cssClass="userInput" />
+				<s:textfield key="user.lastName" cssClass="userInput" />
+				<s:textfield key="user.email" cssClass="userInput" />
+				<s:date name="user.birthDate" format="%{getText('user.birthDate.format')}" var="birthDate" />
+				<s:textfield key="user.birthDate" value="%{birthDate}" cssClass="userInput" />
+				<s:submit value="%{getText('manage.user.update')}" />
 			</s:form>
 		</div>
 	</div>

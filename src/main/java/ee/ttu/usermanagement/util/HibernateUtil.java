@@ -45,4 +45,8 @@ public class HibernateUtil {
 		getSession().getTransaction().commit();
 	}
 	
+	public static void rollbackTransaction() {
+		getSession().getTransaction().rollback();
+	}
+	
 }

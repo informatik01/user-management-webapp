@@ -14,9 +14,18 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jre.version>1.7</jre.version>
+		<javax.servlet.version>3.0.1</javax.servlet.version>
+		<javax.servlet.jsp.version>2.2.1</javax.servlet.jsp.version>
+		<javax.inject.version>1</javax.inject.version>
+		<log4j.version>1.2.17</log4j.version>
+		<slf4j.version>1.7.6</slf4j.version>
 		<struts.version>2.3.16</struts.version>
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<spring.security.version>3.2.0.RELEASE</spring.security.version>
+		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
+		<commons.dbcp.vesion>1.4</commons.dbcp.vesion>
+		<hibernate.core.version>4.3.4.Final</hibernate.core.version>
+		<hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
 	</properties>
 
 	<build>
@@ -84,43 +93,49 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.6</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
-			<version>1</version>
+			<version>${javax.inject.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>${javax.servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.2.1</version>
+			<version>${javax.servlet.jsp.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.3-1101-jdbc41</version>
+			<version>${postgresql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
+			<version>${commons.dbcp.vesion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.1.Final</version>
+			<version>${hibernate.core.version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>${hibernate.validator.version}</version>
 		</dependency>	
 	</dependencies>
 

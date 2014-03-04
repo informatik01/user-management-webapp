@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -33,10 +32,8 @@ public class UserProfile implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 	
-	@Column(name = "username")
 	private String userName;
 	
-	@Column(name = "password")
 	private String password;
 	
 	public UserProfile() {}

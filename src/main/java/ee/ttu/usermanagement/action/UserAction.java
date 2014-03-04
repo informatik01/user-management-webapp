@@ -24,16 +24,16 @@ public class UserAction extends ActionSupport {
 
 	private long userId;
 	
-	private UserProfile currentUser;
+	private UserProfile user;
 	
 	private List<UserProfile> users;
 	
-	public UserProfile getCurrentUser() {
-		return currentUser;
+	public UserProfile getUser() {
+		return user;
 	}
 
-	public void setCurrentUser(UserProfile currentUser) {
-		this.currentUser = currentUser;
+	public void setUser(UserProfile user) {
+		this.user = user;
 	}
 
 	public List<UserProfile> getUsers() {
@@ -59,20 +59,37 @@ public class UserAction extends ActionSupport {
 	}
 	
 	public String addUser() {
-		userService.saveUser(currentUser);
-		currentUser = null;
+		if (user == null) {
+			addActionMessage(getText("error.supply.user"));
+			return INPUT;
+		}
+		
+		boolean saved = userService.saveUser(user);
+		if (saved) {
+			addActionMessage(getText("success.save.user", new String[]{user.toString()}));
+		} else {
+			addActionError(getText("error.save.user", new String[]{user.toString()}));
+			return ERROR;
+		}
+		user = null;
 		
 		return SUCCESS;
 	}
 	
 	public String showUpdateUser() {
-		currentUser = userService.findUserById(userId);
+		user = userService.findUserById(userId);
 		
 		return SUCCESS;
 	}
 	
 	public String updateUser() {
-		userService.saveUser(currentUser);
+		boolean saved = userService.saveUser(user);
+		if (saved) {
+			addActionMessage(getText("success.update.user"));
+		} else {
+			addActionError(getText("error.update.user", new String[]{user.toString()}));
+			return ERROR;
+		}
 		
 		return SUCCESS;
 	}
@@ -81,7 +98,10 @@ public class UserAction extends ActionSupport {
 		int deletedNumber = userService.deleteUserWithId(userId);
 		
 		if (deletedNumber > 0) {
-			addActionMessage(getText("manage.user.deleted", new String[]{Long.toString(userId)}));
+			addActionMessage(getText("success.delete.user"));
+		} else {
+			addActionError(getText("error.delete.user"));
+			return ERROR;
 		}
 		// We need to get a fresh users list
 		users = userService.getAllUsers();
@@ -100,7 +120,7 @@ public class UserAction extends ActionSupport {
 		} else {
 			addActionError("User with email " + email + " is NOT found.");
 		}
-		setCurrentUser(foundUSer);
+		setUser(foundUSer);
 		
 		return SUCCESS;
 	}

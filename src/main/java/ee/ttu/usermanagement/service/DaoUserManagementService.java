@@ -21,67 +21,121 @@ public class DaoUserManagementService implements UserManagementService {
 	private UserDAO userDao;
 	
 	@Override
-	public void saveUser(UserProfile user) {
-		HibernateUtil.beginTransaction();
-		userDao.save(user);
-		HibernateUtil.commit();
+	public boolean saveUser(UserProfile user) {
+		if (user == null) {
+			throw new NullPointerException("User must not be null");
+		}
+		
+		try {
+			HibernateUtil.beginTransaction();
+			userDao.save(user);
+			HibernateUtil.commit();
+		} catch (HibernateException e) {
+			LOGGER.error("Error saving user with ID " + user.getId());
+			HibernateUtil.rollbackTransaction();
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public UserProfile findUserById(long id) {
-		HibernateUtil.beginTransaction();
-		UserProfile user = userDao.findById(id);
-		HibernateUtil.commit();
+		UserProfile user = null;
+		try {
+			HibernateUtil.beginTransaction();
+			user = userDao.findById(id);
+			HibernateUtil.commit();
+		} catch (HibernateException e) {
+			LOGGER.error("Error finding user with ID " + id);
+			HibernateUtil.rollbackTransaction();
+			return null;
+		}
 		
 		return user;
 	}
 
 	@Override
 	public UserProfile findUserByEmail(String email) {
-		HibernateUtil.beginTransaction();
-		UserProfile user = userDao.findUserByEmail(email);
-		HibernateUtil.commit();
+		if (email == null) {
+			throw new NullPointerException("Email must not be null ");
+		} else if (email.trim().isEmpty()) {
+			return null;
+		}
+		
+		UserProfile user = null;
+		try {
+			HibernateUtil.beginTransaction();
+			user = userDao.findUserByEmail(email);
+			HibernateUtil.commit();
+		} catch (HibernateException e) {
+			LOGGER.error("Error finding user with email " + email);
+			HibernateUtil.rollbackTransaction();
+		}
 		
 		return user;
 	}
 	
 	@Override
 	public List<UserProfile> getAllUsers() {
-		HibernateUtil.beginTransaction();
-		List<UserProfile> users = userDao.findAll();
-		HibernateUtil.commit();
+		List<UserProfile> users = null;
+		try {
+			HibernateUtil.beginTransaction();
+			users = userDao.findAll();
+			HibernateUtil.commit();
+		} catch (HibernateException e) {
+			LOGGER.error("Error finding all users");
+			HibernateUtil.rollbackTransaction();
+		}
 
 		return users;
 	}
 
 	@Override
 	public boolean deleteUser(UserProfile user) {
-		HibernateUtil.beginTransaction();
+		if (user == null) {
+			throw new NullPointerException("User must not be null");
+		}
+		
 		try {
+			HibernateUtil.beginTransaction();
 			userDao.delete(user);			
+			HibernateUtil.commit();
 		} catch (HibernateException e) {
 			LOGGER.error("Error deleting user with id " + user.getId());
+			HibernateUtil.rollbackTransaction();
 			return false;
 		}
-		HibernateUtil.commit();
 		
 		return true;
 	}
 
 	@Override
 	public int deleteUserWithId(long id) {
-		HibernateUtil.beginTransaction();
-		int deletedCount = userDao.delete(id);
-		HibernateUtil.commit();
+		int deletedCount = 0;
+		try {
+			HibernateUtil.beginTransaction();
+			deletedCount = userDao.delete(id);
+			HibernateUtil.commit();
+		} catch (HibernateException e) {
+			LOGGER.error("Error deleting user with id " + id);
+			HibernateUtil.rollbackTransaction();
+		}
 		
 		return deletedCount;
 	}
 
 	@Override
 	public int deleteUserWithEmail(String email) {
-		HibernateUtil.beginTransaction();
-		int deletedCount = userDao.deleteUserWithEmail(email);
-		HibernateUtil.commit();
+		int deletedCount = 0;
+		try {
+			HibernateUtil.beginTransaction();
+			deletedCount = userDao.deleteUserWithEmail(email);
+			HibernateUtil.commit();
+		} catch (HibernateException e) {
+			LOGGER.error("Error deleting user with email " + email);
+			HibernateUtil.rollbackTransaction();
+		}
 		
 		return deletedCount;
 	}

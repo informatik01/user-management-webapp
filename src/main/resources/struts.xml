@@ -9,6 +9,7 @@
 	<constant name="struts.objectFactory" value="spring" />
 	<constant name="struts.custom.i18n.resources" value="messages" />
 	<constant name="struts.locale" value="en" />
+	<constant name="struts.mapper.action.prefix.enabled" value="true" />
 
 	<package name="userManagement-default" extends="struts-default">
 		
@@ -62,9 +63,9 @@
 		</action>
 		
 		<action name="updateUser" method="updateUser" class="ee.ttu.usermanagement.action.UserAction">
-			<result name="success" type="redirectAction">manageUsers</result>
+			<result name="error">/WEB-INF/admin/pages/userUpdate.jsp</result>
 			<result name="input">/WEB-INF/admin/pages/userUpdate.jsp</result>
-			<result name="success" type="redirectAction">manageUsers</result>
+			<result name="success">/WEB-INF/admin/pages/userUpdate.jsp</result>
 		</action>
 		
 		<action name="deleteUser" method="deleteUser" class="ee.ttu.usermanagement.action.UserAction">

@@ -18,20 +18,20 @@
 		
 		// TODO add onblur
 		function showDateFormatHelp() {
-			$("#birthDate").val("<s:text name='user.birthdate.format' />").addClass("inputHelp");
+			$("#birthDate").val("<s:text name='user.birthDate.format' />").addClass("inputHelp");
 		}
 	
 	</script>
 	<div id="container">
 		<s:include value="/WEB-INF/jspf/header.jsp"></s:include>
+		<s:include value="/WEB-INF/jspf/notifications.jsp"></s:include>
 		<div id="userForm">
 			<s:form action="addUser" method="post">
-				<s:textfield key="user.firstname" name="currentUser.firstName" cssClass="userInput" />
-				<s:textfield key="user.lastname" name="currentUser.lastName" cssClass="userInput" />
-				<s:textfield key="user.email" name="currentUser.email" cssClass="userInput" />
-				<s:textfield id="birthDate" key="user.birthdate" format="%{getText('user.birthdate.format')}" name="currentUser.birthDate"
-					cssClass="inputHelp userInput"  />
-				<s:submit key="manage.user.add" />
+				<s:textfield key="user.firstName" cssClass="userInput" />
+				<s:textfield key="user.lastName"  cssClass="userInput" />
+				<s:textfield key="user.email"  cssClass="userInput" />
+				<s:textfield key="user.birthDate" id="birthDate" cssClass="inputHelp userInput" onmousedown="clearInput()" />
+				<s:submit value="%{getText('manage.user.add')}" />
 			</s:form>
 		</div>
 	</div>

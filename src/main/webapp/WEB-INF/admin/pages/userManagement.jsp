@@ -18,7 +18,7 @@
 				sortList : [ [ 0, 0 ] ],
 			}).tablesorterPager({
 				container : $("#pager"),
-				size : 5
+				size : 10
 			});
 		});
 	</script>
@@ -27,17 +27,9 @@
 	<div id="container">
 		<s:include value="/WEB-INF/jspf/header.jsp"></s:include>
 		<h1>Manage Users</h1>
-		<s:if test="hasActionErrors()">
-				<s:actionerror cssClass="error" />
-			</s:if>
-			<s:if test="hasActionMessages()">
-				<div id="messages">
-					<s:actionmessage cssClass="message" />
-				</div>
-			</s:if>
+		<s:include value="/WEB-INF/jspf/notifications.jsp"></s:include>
 		<s:if test="users == null || users.empty">
-			<p>
-				<s:text name="manage.no_users" />
+			<p><s:text name="manage.no_users" /></p>
 		</s:if>
 		<s:else>
 			<table class="userList tablesorter">
@@ -50,12 +42,18 @@
 				</thead>
 				<tbody>
 					<s:iterator value="users">
+						<s:url value="showUpdateUser" includeParams="all" var="updateUser">
+							<s:param name="userId" value="%{id}"  />
+						</s:url>
+						<s:url value="deleteUser" includeParams="all" var="deleteUser">
+							<s:param name="userId" value="%{id}" />
+						</s:url>
 						<tr>
 							<td><s:property value="firstName" /></td>
 							<td><s:property value="lastName" /></td>
 							<td class="edit">
-								<a href="showUpdateUser?userId=<s:property value="id" />"><s:text name="manage.update" /></a> 
-								| <a href="deleteUser?userId=<s:property value="id" />"><s:text name="manage.delete" /></a>
+								<a href="<s:property value="updateUser" />"><s:text name="manage.update" /></a> 
+								| <a href="<s:property value="deleteUser" />"><s:text name="manage.delete" /></a>
 							</td>
 						</tr>
 					</s:iterator>
@@ -69,10 +67,9 @@
 					<img src="<s:url value="/img/tablesorter/pager/next.png" />" class="next" />
 					<img src="<s:url value="/img/tablesorter/pager/last.png" />" class="last" />
 					<select class="pagesize">
-						<option selected="selected" value="5">5</option>
-						<option value="10">10</option>
-						<option value="30">30</option>
+						<option selected="selected" value="10">10</option>
 						<option value="50">50</option>
+						<option value="100">100</option>
 					</select>
 				</form>
 			</div>

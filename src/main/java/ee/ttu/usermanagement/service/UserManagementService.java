@@ -6,7 +6,7 @@ import ee.ttu.usermanagement.entity.UserProfile;
 
 public interface UserManagementService {
 
-	void saveUser(UserProfile user);
+	boolean saveUser(UserProfile user);
 	
 	UserProfile findUserById(long id);
 	
