@@ -1,16 +1,16 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<s:url value="" includeParams="all" var="en">
+<s:url value="" includeParams="all" escapeAmp="false" var="en">
 	<s:param name="request_locale">en</s:param>
 </s:url>
-<s:url value="" includeParams="all" var="ru">
+<s:url value="" includeParams="all" escapeAmp="false" var="ru">
 	<s:param name="request_locale">ru</s:param>
 </s:url>
-<s:url value="" includeParams="all" var="et">
+<s:url value="" includeParams="all" escapeAmp="false" var="et">
 	<s:param name="request_locale">et</s:param>
 </s:url>
 
-<div id="header">
+<div>
 	<div id="navigation">
 		<ul class="nav">
 			<li><a href="<s:property value="en"/>">Eng</a></li>

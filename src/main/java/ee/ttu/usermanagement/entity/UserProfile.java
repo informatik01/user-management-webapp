@@ -2,14 +2,22 @@ package ee.ttu.usermanagement.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class UserProfile implements Serializable {
@@ -35,6 +43,10 @@ public class UserProfile implements Serializable {
 	private String userName;
 	
 	private String password;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<Role> roles = new HashSet<Role>();
 	
 	public UserProfile() {}
 	
@@ -100,6 +112,14 @@ public class UserProfile implements Serializable {
 		this.password = password;
 	}
 	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public String toString() {
 		return firstName + " " + lastName + " (" + email + ")"; 

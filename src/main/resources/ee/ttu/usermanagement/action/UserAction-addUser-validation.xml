@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+	"-//Apache Struts//XWork Validator 1.0.3//EN"
+	"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+	<field name="user.firstName">
+		<field-validator type="requiredstring">
+			<message key="validation.empty.firstname" />
+		</field-validator>
+	</field>
+	<field name="user.lastName">
+		<field-validator type="requiredstring">
+			<message key="validation.empty.lastname" />
+		</field-validator>
+	</field>
+	<field name="user.email">
+		<field-validator type="requiredstring">
+			<message key="validation.empty.email" />
+		</field-validator>
+		<field-validator type="email">
+			<message key="validation.email" />
+		</field-validator>
+	</field>
+	<field name="user.birthDate">
+		<field-validator type="conversion">
+			<param name="repopulateField">true</param>
+			<message key="validation.date" />
+		</field-validator>
+	</field>
+</validators>

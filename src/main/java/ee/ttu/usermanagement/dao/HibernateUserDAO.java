@@ -17,7 +17,7 @@ public class HibernateUserDAO extends HibernateGenericDAO<UserProfile, Long> imp
 	@Override
 	public UserProfile findUserByEmail(String email) {
 		UserProfile user = null;
-		String sql = "SELECT u FROM User AS u WHERE u.email = :email";
+		String sql = "SELECT u FROM UserProfile AS u WHERE u.email = :email";
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery(sql).setParameter("email", email);
 		user = (UserProfile) query.uniqueResult();
@@ -27,7 +27,7 @@ public class HibernateUserDAO extends HibernateGenericDAO<UserProfile, Long> imp
 
 	@Override
 	public int deleteUserWithEmail(String email) {
-		String sql = "DELETE FROM User AS u WHERE u.email = :email";
+		String sql = "DELETE FROM UserProfile AS u WHERE u.email = :email";
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery(sql);
 		int deletedCount = query.executeUpdate();

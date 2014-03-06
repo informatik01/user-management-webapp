@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<definition name="admin-home" template="/WEB-INF/admin/layouts/classic.jsp">
+		<put-attribute name="title" value="title.admin.home" />
+		<put-attribute name="header" value="/WEB-INF/admin/tiles/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/admin/pages/adminHome.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/admin/tiles/footer.jsp" />
+	</definition>
+	
+	<definition name="manageUsers" extends="admin-home">
+		<put-attribute name="title" value="title.admin.manage.users" />
+		<put-attribute name="body" value="/WEB-INF/admin/pages/userManagement.jsp" />
+	</definition>
+	
+	<definition name="addUser" extends="admin-home">
+		<put-attribute name="title" value="title.admin.add.user" />
+		<put-attribute name="body" value="/WEB-INF/admin/pages/newUser.jsp" />
+	</definition>
+	
+	<definition name="updateUser" extends="admin-home">
+		<put-attribute name="title" value="title.admin.update.user" />
+		<put-attribute name="body" value="/WEB-INF/admin/pages/userUpdate.jsp" />
+	</definition>	
+	
+</tiles-definitions>

@@ -66,7 +66,7 @@ public class DaoUserManagementService implements UserManagementService {
 		UserProfile user = null;
 		try {
 			HibernateUtil.beginTransaction();
-			user = userDao.findUserByEmail(email);
+			user = userDao.findUserByEmail(email.trim());
 			HibernateUtil.commit();
 		} catch (HibernateException e) {
 			LOGGER.error("Error finding user with email " + email);

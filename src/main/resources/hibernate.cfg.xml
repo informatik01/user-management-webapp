@@ -16,11 +16,11 @@
 
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
-		<property name="connection.pool_size">1</property>
 		<!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>
 		
         <mapping class="ee.ttu.usermanagement.entity.UserProfile"/>
+        <mapping class="ee.ttu.usermanagement.entity.Role"/>
 
     </session-factory>
 

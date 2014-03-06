@@ -1,9 +1,21 @@
 #container {
 	margin: 15px;
+	padding-bottom: 25px;
 }
 
 #header {
 	margin-bottom: 10px;
+}
+
+#mainContent {
+	padding-bottom: 15px;
+}
+
+#footer {
+	text-align: center;
+	margin: 15px 0;
+	padding: 10px;
+	
 }
 
 /***** Navigation menu *****/
@@ -95,6 +107,10 @@
 }
 
 /***** Error and notification messages *****/
+
+#notificationContainer {
+	min-height: 50px;
+}
 
 .notification {
 	display: inline-block;	/* wraps the text width */

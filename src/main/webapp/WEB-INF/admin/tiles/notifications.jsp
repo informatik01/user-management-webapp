@@ -1,4 +1,5 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <s:if test="hasActionErrors()">
 	<div id="errors">
 		<s:actionerror cssClass="notification error" />
