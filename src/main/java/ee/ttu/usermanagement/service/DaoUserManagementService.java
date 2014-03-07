@@ -22,7 +22,8 @@ public class DaoUserManagementService implements UserManagementService {
 	@Inject
 	private UserDAO userDao;
 	
-	@Inject RoleDAO roleDao;
+	@Inject 
+	private RoleDAO roleDao;
 	
 	
 	@Override
