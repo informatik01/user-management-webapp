@@ -20,11 +20,11 @@ public class Role implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String name;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date createTime = new Date();
+	private Date modifiedTime = new Date();
 
 	public Long getId() {
 		return id;
@@ -42,12 +42,12 @@ public class Role implements Serializable {
 		this.name = name;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
+	public Date getModifiedTime() {
+		return modifiedTime;
 	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public void setModifiedTime(Date modifiedTime) {
+		this.modifiedTime = modifiedTime;
 	} 
 
 }

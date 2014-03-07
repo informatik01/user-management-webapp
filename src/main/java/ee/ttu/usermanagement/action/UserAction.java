@@ -8,16 +8,12 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import ee.ttu.usermanagement.entity.Role;
 import ee.ttu.usermanagement.entity.UserProfile;
 import ee.ttu.usermanagement.service.UserManagementService;
-import ee.ttu.usermanagement.util.HibernateUtil;
 
 public class UserAction extends ActionSupport {
 
@@ -75,28 +71,14 @@ public class UserAction extends ActionSupport {
 	}
 
 	public String addUser() {
-		Set<Role> newRoles = new HashSet<Role>();
-		for (Role role : roles) {
-			if (!role.getName().trim().isEmpty()) {
-				newRoles.add(role);
-			}
-		}
-		user.setRoles(newRoles);
-
-		UserProfile userWithSameEmail = userService.findUserByEmail(user.getEmail());
-		if (userWithSameEmail != null) {
-			addActionError(getText("error.exist.user.email", new String[] { user.getEmail() }));
+		if (!canSaveOrUpdateUser(user, roles, false)) {
 			return ERROR;
 		}
-
-		boolean saved = userService.saveUser(user);
-		if (saved) {
-			addActionMessage(getText("success.save.user", new String[] { user.toString() }));
-		} else {
-			addActionError(getText("error.save.user", new String[] { user.toString() }));
-			return ERROR;
-		}
-
+		
+		// If we are here the user already saved,
+		// so we do this to clear a new user input fields
+		user = null;
+		
 		return SUCCESS;
 	}
 
@@ -108,26 +90,7 @@ public class UserAction extends ActionSupport {
 
 	//FIXME resolve update duplicate Role names issue
 	public String updateUser() {
-		UserProfile userWithSameEmail = userService.findUserByEmail(user.getEmail());
-		if (userWithSameEmail != null && !userWithSameEmail.getId().equals(user.getId())) {
-			addActionError(getText("error.exist.user.email", new String[] { user.getEmail() }));
-			return ERROR;
-		}
-
-		// Preserving existing and/or updated roles
-		Set<Role> newRoles = new HashSet<Role>();
-		for (Role role : roles) {
-			if (!role.getName().trim().isEmpty()) {
-				newRoles.add(role);
-			}
-		}
-		user.setRoles(newRoles);
-
-		boolean saved = userService.saveUser(user);
-		if (saved) {
-			addActionMessage(getText("success.update.user"));
-		} else {
-			addActionError(getText("error.update.user", new String[] { user.toString() }));
+		if (!canSaveOrUpdateUser(user, roles, true)) {
 			return ERROR;
 		}
 
@@ -150,6 +113,53 @@ public class UserAction extends ActionSupport {
 	public String execute() throws ParseException {
 
 		return SUCCESS;
+	}
+	
+	// Helper method
+	private boolean canSaveOrUpdateUser(UserProfile user, List<Role> roles, boolean update) {
+		Set<Role> rolesToAdd = new HashSet<Role>();
+		for (Role role : roles) {
+			if (!role.getName().trim().isEmpty()) {
+				Role existingRole = userService.findRoleByName(role.getName());
+				if (existingRole != null) {
+					role.setId(existingRole.getId());
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("***** Existing role found: " +
+								existingRole.getName() +
+								" (id=" + existingRole.getId() + ")");
+					}
+				} else {
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("***** New role to add: " + role.getName());
+					}
+				}
+				rolesToAdd.add(role);
+			}
+		}
+		user.setRoles(rolesToAdd);
+		
+		UserProfile existingUser = userService.findUserByEmail(user.getEmail());
+		if (existingUser != null) {
+			if (!update) {
+				addActionError(getText("error.exist.user.email", new String[] { user.getEmail() }));
+				return false;
+			} else if (!existingUser.getId().equals(user.getId())) {
+				addActionError(getText("error.exist.user.email", new String[] { user.getEmail() }));
+				return false;
+			}
+		}
+		
+		
+		boolean saved = userService.saveUser(user);
+		if (saved) {
+			addActionMessage(getText("success.save.user", new String[] { user.toString() }));
+		} else {
+			addActionError(getText("error.save.user", new String[] { user.toString() }));
+			
+			return false;
+		}
+		
+		return true;
 	}
 
 }
