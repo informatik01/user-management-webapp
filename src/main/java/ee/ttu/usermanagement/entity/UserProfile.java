@@ -3,6 +3,7 @@ package ee.ttu.usermanagement.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,35 +22,39 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class UserProfile implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String firstName;
-	
+
 	@Column(nullable = false)
 	private String lastName;
-	
+
 	@Column(unique = true, nullable = false)
 	private String email;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
-	
+
 	private String userName;
-	
+
 	private String password;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<Role> roles = new HashSet<Role>();
-	
-	public UserProfile() {}
-	
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Car> cars;
+
+	public UserProfile() {
+	}
+
 	public UserProfile(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -110,7 +116,7 @@ public class UserProfile implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -121,7 +127,21 @@ public class UserProfile implements Serializable {
 
 	@Override
 	public String toString() {
-		return firstName + " " + lastName + " (" + email + ")"; 
+		return firstName + " " + lastName + " (" + email + ")";
 	}
-	
+
+	/**
+	 * @return the cars
+	 */
+	public List<Car> getCars() {
+		return cars;
+	}
+
+	/**
+	 * @param cars
+	 *          the cars to set
+	 */
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
 }
