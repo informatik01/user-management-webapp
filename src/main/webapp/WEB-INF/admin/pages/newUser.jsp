@@ -13,6 +13,17 @@
 		<s:textfield label="%{getText('user.role')} 1" name="roles.name" value="%{user.roles.name}" cssClass="userInput" />
 		<s:textfield label="%{getText('user.role')} 2" name="roles.name" value="%{user.roles.name}" cssClass="userInput"  />
 		<s:textfield label="%{getText('user.role')} 3" name="roles.name" value="%{user.roles.name}" cssClass="userInput" />
+		
+		<s:textfield label="1 %{getText('car.name')} %{getText('car.make')}"
+					 name="user.cars[0].make" value="%{user.cars[0].make}" cssClass="userInput" />
+		<s:textfield label="1 %{getText('car.name')} %{getText('car.plate.number')}"
+					 name="user.cars[0].plateNumber" value="%{user.cars[0].plateNumber}" cssClass="userInput" />
+		
+		<s:textfield label="2 %{getText('car.name')} %{getText('car.make')}"
+					 name="user.cars[1].make" value="%{user.cars[1].make}" cssClass="userInput" />
+		<s:textfield label="2 %{getText('car.name')} %{getText('car.plate.number')}"
+					 name="user.cars[1].plateNumber" value="%{user.cars[1].plateNumber}" cssClass="userInput" />
+		
 		<s:submit value="%{getText('manage.user.add')}" />
 	</s:form>
 </div>

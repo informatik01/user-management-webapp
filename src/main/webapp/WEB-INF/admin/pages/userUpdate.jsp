@@ -14,6 +14,13 @@
 		<s:iterator value="user.roles" status="count">
 			<s:textfield label="%{getText('user.role')} %{#count.index + 1}" name="roles.name" value="%{name}" cssClass="userInput" />
 		</s:iterator>
+		<s:iterator value="user.cars" status="count">
+			<s:hidden name="user.cars[%{#count.index}].id"></s:hidden>
+			<s:textfield label="%{getText('car.name')} %{#count.index + 1} %{getText('car.make')}"
+						 name="user.cars[%{#count.index}].make" value="%{user.cars[#count.index].make}" cssClass="userInput" />
+			<s:textfield label="%{getText('car.name')} %{#count.index + 1} %{getText('car.plate.number')}"
+						 name="user.cars[%{#count.index}].plateNumber" value="%{user.cars[#count.index].plateNumber}" cssClass="userInput" />
+		</s:iterator>
 		<s:submit value="%{getText('manage.user.update')}" />
 	</s:form>
 </div>

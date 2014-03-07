@@ -50,6 +50,7 @@ public class UserProfile implements Serializable {
 	private Set<Role> roles = new HashSet<Role>();
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Car> cars;
 
 	public UserProfile() {

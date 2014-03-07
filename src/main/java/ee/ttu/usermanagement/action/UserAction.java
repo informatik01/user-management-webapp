@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import ee.ttu.usermanagement.entity.Car;
 import ee.ttu.usermanagement.entity.Role;
 import ee.ttu.usermanagement.entity.UserProfile;
 import ee.ttu.usermanagement.service.UserManagementService;
@@ -84,11 +85,10 @@ public class UserAction extends ActionSupport {
 
 	public String showUpdateUser() {
 		user = userService.findUserById(userId);
-
+		
 		return SUCCESS;
 	}
 
-	//FIXME resolve update duplicate Role names issue
 	public String updateUser() {
 		if (!canSaveOrUpdateUser(user, roles, true)) {
 			return ERROR;

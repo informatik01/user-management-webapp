@@ -21,6 +21,7 @@
 		
         <mapping class="ee.ttu.usermanagement.entity.UserProfile"/>
         <mapping class="ee.ttu.usermanagement.entity.Role"/>
+        <mapping class="ee.ttu.usermanagement.entity.Car"/>
 
     </session-factory>
 
