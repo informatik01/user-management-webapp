@@ -17,9 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 @Entity
 public class UserProfile implements Serializable {
 
@@ -41,16 +38,12 @@ public class UserProfile implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 
-	private String userName;
-
 	private String password;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<Role> roles = new HashSet<Role>();
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Car> cars;
 
 	public UserProfile() {
@@ -100,14 +93,6 @@ public class UserProfile implements Serializable {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getPassword() {

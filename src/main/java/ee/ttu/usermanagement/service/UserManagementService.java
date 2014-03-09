@@ -12,16 +12,16 @@ public interface UserManagementService {
 	boolean saveRole(Role role);
 	
 	
-	UserProfile findUserById(long id);
+	UserProfile findUserById(long id, boolean eagerly);
 	
-	UserProfile findUserByEmail(String email);
+	UserProfile findUserByEmail(String email, boolean eagerly);
 	
 	Role findRoleById(long id);
 	
 	Role findRoleByName(String name);
 	
 	
-	List<UserProfile> getAllUsers();
+	List<UserProfile> getAllUsers(boolean eagerly);
 	
 	List<Role> getAllRoles();
 	

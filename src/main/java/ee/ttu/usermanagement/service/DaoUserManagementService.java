@@ -66,11 +66,17 @@ public class DaoUserManagementService implements UserManagementService {
 	
 	
 	@Override
-	public UserProfile findUserById(long id) {
+	public UserProfile findUserById(long id, boolean eagerly) {
 		UserProfile user = null;
 		try {
 			HibernateUtil.beginTransaction();
-			user = userDao.findById(id);
+			
+			if (eagerly) {
+				user = userDao.findByIdEagerly(id);
+			} else {
+				user = userDao.findById(id);
+			}
+			
 			HibernateUtil.commit();
 		} catch (HibernateException e) {
 			LOGGER.error("Error finding user with ID " + id);
@@ -82,7 +88,7 @@ public class DaoUserManagementService implements UserManagementService {
 	}
 
 	@Override
-	public UserProfile findUserByEmail(String email) {
+	public UserProfile findUserByEmail(String email, boolean eagerly) {
 		if (email == null) {
 			throw new NullPointerException("Email must not be null");
 		} else if (email.trim().isEmpty()) {
@@ -92,7 +98,13 @@ public class DaoUserManagementService implements UserManagementService {
 		UserProfile user = null;
 		try {
 			HibernateUtil.beginTransaction();
-			user = userDao.findUserByEmail(email.trim());
+			
+			if (eagerly) {
+				user = userDao.findUserByEmailEagerly(email.trim());
+			} else {
+				user = userDao.findUserByEmail(email.trim());
+			}
+			
 			HibernateUtil.commit();
 		} catch (HibernateException e) {
 			LOGGER.error("Error finding user with email " + email);
@@ -141,11 +153,17 @@ public class DaoUserManagementService implements UserManagementService {
 	
 	
 	@Override
-	public List<UserProfile> getAllUsers() {
+	public List<UserProfile> getAllUsers(boolean eagerly) {
 		List<UserProfile> users = null;
 		try {
 			HibernateUtil.beginTransaction();
-			users = userDao.findAll();
+			
+			if (eagerly) {
+				users = userDao.findAllEagerly();
+			} else {
+				users = userDao.findAll();
+			}
+			
 			HibernateUtil.commit();
 		} catch (HibernateException e) {
 			LOGGER.error("Error finding all users");

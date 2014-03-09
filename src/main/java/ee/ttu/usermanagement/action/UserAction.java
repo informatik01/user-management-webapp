@@ -1,14 +1,19 @@
 package ee.ttu.usermanagement.action;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import ee.ttu.usermanagement.entity.Car;
@@ -31,7 +36,14 @@ public class UserAction extends ActionSupport {
 
 	private List<UserProfile> users;
 
-	private List<Role> roles;
+	/*
+	 * IMPLEMENTATION NOTE
+	 * 
+	 * We need this roles variable to overcome
+	 * the issue with mapping elements of HashSet.
+	 * (roles in the UserProfile class are stored as HashSet)
+	 */
+	private Collection<Role> roles;
 
 	public long getUserId() {
 		return userId;
@@ -57,43 +69,55 @@ public class UserAction extends ActionSupport {
 		this.users = users;
 	}
 
-	public List<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
 
 	public String manageUsers() {
-		users = userService.getAllUsers();
+		users = userService.getAllUsers(true);
 
 		return SUCCESS;
 	}
 
 	public String addUser() {
-		if (!canSaveOrUpdateUser(user, roles, false)) {
+		if (!canSaveOrUpdateUser(false)) {
 			return ERROR;
 		}
-		
+
 		// If we are here the user already saved,
 		// so we do this to clear a new user input fields
 		user = null;
-		
+		roles = null;
+
 		return SUCCESS;
 	}
 
 	public String showUpdateUser() {
-		user = userService.findUserById(userId);
+		user = userService.findUserById(userId, true);
+		roles = user.getRoles();
+		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		// Storing current user data to preserve user's password
+		// because we're not going to update it here.
+		session.put("userProfile", user);
 		
 		return SUCCESS;
 	}
 
 	public String updateUser() {
-		if (!canSaveOrUpdateUser(user, roles, true)) {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		UserProfile currentUser = (UserProfile) session.get("userProfile");
+		user.setPassword(currentUser.getPassword());
+		
+		if (!canSaveOrUpdateUser(true)) {
 			return ERROR;
 		}
 
+		
 		return SUCCESS;
 	}
 
@@ -114,31 +138,47 @@ public class UserAction extends ActionSupport {
 
 		return SUCCESS;
 	}
-	
+
 	// Helper method
-	private boolean canSaveOrUpdateUser(UserProfile user, List<Role> roles, boolean update) {
-		Set<Role> rolesToAdd = new HashSet<Role>();
-		for (Role role : roles) {
-			if (!role.getName().trim().isEmpty()) {
-				Role existingRole = userService.findRoleByName(role.getName());
-				if (existingRole != null) {
-					role.setId(existingRole.getId());
-					if (LOGGER.isDebugEnabled()) {
-						LOGGER.debug("***** Existing role found: " +
-								existingRole.getName() +
-								" (id=" + existingRole.getId() + ")");
+	private boolean canSaveOrUpdateUser(boolean update) {
+		if (roles != null) {
+			Set<Role> rolesToAdd = new HashSet<Role>();
+			for (Role role : roles) {
+				if (!role.getName().trim().isEmpty()) {
+					Role existingRole = userService.findRoleByName(role.getName());
+					if (existingRole != null) {
+						// If the role already exists, set its ID
+						// so a role with the same name won't be created.
+						role.setId(existingRole.getId());
+						if (LOGGER.isDebugEnabled()) {
+							LOGGER.debug("***** Existing role found: " +
+										existingRole.getName() +
+										" (id=" + existingRole.getId() + ")");
+						}
+					} else {
+						if (LOGGER.isDebugEnabled()) {
+							LOGGER.debug("***** New role to add: " + role.getName());
+						}
 					}
-				} else {
-					if (LOGGER.isDebugEnabled()) {
-						LOGGER.debug("***** New role to add: " + role.getName());
-					}
+					rolesToAdd.add(role);
 				}
-				rolesToAdd.add(role);
+			}
+			user.setRoles(rolesToAdd);
+			// We need this cast, otherwise there will be problems with the HashSet
+			// when using it on JSP pages with input fields.
+			roles = new ArrayList<Role>(rolesToAdd);
+		}
+
+		if (user.getCars() != null) {
+			for (Iterator<Car> it = user.getCars().iterator(); it.hasNext();) {
+				Car car = it.next();
+				if (car.getPlateNumber().trim().isEmpty()) {
+					it.remove();
+				}
 			}
 		}
-		user.setRoles(rolesToAdd);
-		
-		UserProfile existingUser = userService.findUserByEmail(user.getEmail());
+
+		UserProfile existingUser = userService.findUserByEmail(user.getEmail(), false);
 		if (existingUser != null) {
 			if (!update) {
 				addActionError(getText("error.exist.user.email", new String[] { user.getEmail() }));
@@ -148,17 +188,16 @@ public class UserAction extends ActionSupport {
 				return false;
 			}
 		}
-		
-		
+
 		boolean saved = userService.saveUser(user);
 		if (saved) {
 			addActionMessage(getText("success.save.user", new String[] { user.toString() }));
 		} else {
 			addActionError(getText("error.save.user", new String[] { user.toString() }));
-			
+
 			return false;
 		}
-		
+
 		return true;
 	}
 
