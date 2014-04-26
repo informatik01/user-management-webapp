@@ -19,7 +19,7 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 	@Override
 	@SuppressWarnings("unchecked")
 	public T findById(ID id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		T entity = (T) session.get(persistentClass, id);
 		
 		return entity;
@@ -50,7 +50,7 @@ public abstract class HibernateGenericDAO<T, ID extends Serializable> implements
 	}
 	
 	public int delete(ID id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("DELETE FROM " + persistentClass.getName() + " WHERE id = :id");
 		query.setParameter("id", id);
 		int deletedNumber = query.executeUpdate();
