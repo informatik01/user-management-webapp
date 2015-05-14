@@ -11,7 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jre.version>1.7</jre.version>
+		<jre.version>1.8</jre.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<javax.servlet.jsp.version>2.2.1</javax.servlet.jsp.version>
 		<javax.inject.version>1</javax.inject.version>
