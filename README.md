@@ -13,6 +13,6 @@ to provide [*persistence*](http://en.wikipedia.org/wiki/Persistence_%28computer_
 - [Spring Framework](http://projects.spring.io/spring-framework/) for the
 [*dependency injection*](http://en.wikipedia.org/wiki/Dependency_Injection)
 - [Spring Security](http://projects.spring.io/spring-security/) to secure the web application
-- [Apache Maven](http://maven.apache.org/) as a[*build automation*](http://en.wikipedia.org/wiki/Build_automation)
+- [Apache Maven](http://maven.apache.org/) as a [*build automation*](http://en.wikipedia.org/wiki/Build_automation)
 and project management tool
 - [Git](http://git-scm.com/) as a [*version control*](http://en.wikipedia.org/wiki/Revision_control) tool 
