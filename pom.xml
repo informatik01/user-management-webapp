@@ -19,7 +19,7 @@
 		<slf4j.version>1.7.6</slf4j.version>
 		<struts.version>2.3.34</struts.version>
 		<tiles.version>2.0.6</tiles.version>
-		<spring.version>4.0.2.RELEASE</spring.version>
+		<spring.version>4.3.23.RELEASE</spring.version>
 		<spring.security.version>3.2.1.RELEASE</spring.security.version>
 		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
 		<commons.dbcp.vesion>1.4</commons.dbcp.vesion>
